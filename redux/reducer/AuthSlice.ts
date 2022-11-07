@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
-import { loginAction, registerAction } from "../action/auth/AuthAction";
+import { loginAction, loginWithGoogleAction, registerAction } from "../action/auth/AuthAction";
 
 const initState = {
 	error: null,
@@ -27,6 +26,13 @@ const AuthSlice = createSlice({
 			.addCase(loginAction.fulfilled, (state, action) => {
 			})
 			.addCase(loginAction.rejected, (state, action) => {
+			})
+		builder
+			.addCase(loginWithGoogleAction.pending, (state, action) => {
+			})
+			.addCase(loginWithGoogleAction.fulfilled, (state, action) => {
+			})
+			.addCase(loginWithGoogleAction.rejected, (state, action) => {
 			})
 	}
 

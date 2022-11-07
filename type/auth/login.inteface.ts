@@ -11,13 +11,16 @@ export interface IRedirect {
 export interface ILogin extends IPayload, IRedirect {
 }
 
-export interface ILoginFaceBook {
+export interface ILoginGoogleResponse {
 	accessToken: string;
-	provider: string;
+	googleAddress: string;
 }
 
-export interface ILoginGoogle {
-	name: string | null | undefined;
+export interface ILoginGoogle extends ILoginGoogleResponse, IRedirect {
+
+}
+
+export interface ILoginFacebook {
 	emailAddress: string | null | undefined;
 	accessToken: string | undefined;
 	provider: string;

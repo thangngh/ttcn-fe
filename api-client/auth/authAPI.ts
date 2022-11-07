@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { ILogin } from "../../type/auth/login.inteface";
+import { ILogin, ILoginGoogle } from "../../type/auth/login.inteface";
 import { IRegister } from "../../type/auth/register.interface";
 import axiosConfig from "../axios.config";
 
@@ -43,5 +43,20 @@ export const authAPI = {
 			return error;
 		}
 
+	},
+
+	loginWithGoogle: async ({ accessToken, googleAddress, redirect }: ILoginGoogle) => {
+		const payload = { accessToken, googleAddress };
+		try {
+			const response = await axiosConfig.post("/auth/loginWithGoogle", payload);
+
+			toast.success(response.data.content);
+
+			await new Promise((resolve) => setTimeout(() => {
+				redirect();
+			}, 1000));
+		} catch (error: any) {
+			toast.error(error.message)
+		}
 	}
 }

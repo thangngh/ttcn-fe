@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Logo from "../../../components/logo";
-import { ILogin } from "../../../type/auth/login.inteface";
+import { ILogin, ILoginGoogle } from "../../../type/auth/login.inteface";
 import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -11,6 +11,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import { useAppDispatch } from "../../../redux/hook";
 import { loginAction } from "../../../redux/action/auth/AuthAction";
 import { signIn, useSession } from "next-auth/react";
+
 const schemaValidation = Yup.object({
   userName: Yup.string()
     .required("Username is required")
@@ -35,8 +36,6 @@ const Login = () => {
     resolver: yupResolver(schemaValidation),
   });
 
-  console.log("session", session);
-
   React.useEffect(() => {
     if (router.isReady) {
       if (router.query && router.query.url) {
@@ -44,6 +43,8 @@ const Login = () => {
       }
     }
   }, []);
+
+  React.useEffect(() => {}, []);
 
   const handleRegister = () => {
     router.push({
@@ -82,7 +83,7 @@ const Login = () => {
 
   const onLoginFacebook = async () => {};
 
-  const onLoginGoogle = async () => {};
+  const onLoginGoogle = async (payload: ILoginGoogle) => {};
 
   return (
     <>
