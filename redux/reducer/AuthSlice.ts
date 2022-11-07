@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginAction, loginWithGoogleAction, registerAction } from "../action/auth/AuthAction";
+import { getRoleUserAction, loginAction, loginWithGoogleAction, registerAction } from "../action/auth/AuthAction";
 
 const initState = {
 	error: null,
 	isLoading: false,
-	success: null
+	success: null,
+	content: null,
 }
 
 const AuthSlice = createSlice({
@@ -33,6 +34,18 @@ const AuthSlice = createSlice({
 			.addCase(loginWithGoogleAction.fulfilled, (state, action) => {
 			})
 			.addCase(loginWithGoogleAction.rejected, (state, action) => {
+			})
+		builder
+			.addCase(getRoleUserAction.pending, (state, action) => {
+				state.isLoading = true;
+			})
+			.addCase(getRoleUserAction.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.content = action.payload;
+			})
+			.addCase(getRoleUserAction.rejected, (state, action) => {
+				state.isLoading = false;
+				console.log(action.error);
 			})
 	}
 

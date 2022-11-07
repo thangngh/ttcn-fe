@@ -58,5 +58,18 @@ export const authAPI = {
 		} catch (error: any) {
 			toast.error(error.message)
 		}
+	},
+
+	getRoleUser: async (userName: string) => {
+		try {
+			const response = await axiosConfig.get(`/auth/profile/get-role/${userName}`);
+
+			toast.success(response.data.content);
+
+			return response.data.content;
+		} catch (error: any) {
+			toast.error(error.message);
+			return error;
+		}
 	}
 }

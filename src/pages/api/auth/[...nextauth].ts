@@ -24,19 +24,26 @@ export default NextAuth({
 	},
 	callbacks: {
 		async jwt({ token, account }) {
-			if (account) {
+			console.log("jwt", token, account);
+			if (account?.provider === "google") {
 				token.accessToken = account.id_token;
+				token.sub = account.provider; //provider account
+			}
+			if (account?.provider === "facebook") {
+				token.accessToken = account.accessToken;
 				token.sub = account.provider; //provider account
 			}
 			return token;
 		},
 		async session({ session, token, user }) {
+			console.log("session", session, token);
 			(session.user as ISession).accessToken = token.accessToken as string;
 			(session.user as ISession).email = token.email as string;
 
 			return session;
 		},
 		async signIn({ user, account }) {
+			console.log("signIn", account);
 			if (account?.provider === "google") {
 				account.accessToken = account?.id_token;
 			}

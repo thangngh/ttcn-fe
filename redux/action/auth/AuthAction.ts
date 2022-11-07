@@ -41,3 +41,11 @@ export const loginWithGoogleAction = createAsyncThunk(
 		const response = await authAPI.loginWithGoogle({ ...payLoad, redirect })
 	}
 )
+
+export const getRoleUserAction = createAsyncThunk(
+	"auth/getRoleUser",
+	async (userName: string) => {
+		const response = await authAPI.getRoleUser(userName);
+		return response;
+	}
+)
