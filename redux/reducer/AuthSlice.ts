@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { registerAction } from "../action/auth/AuthAction";
+import { loginAction, registerAction } from "../action/auth/AuthAction";
 
 const initState = {
 	error: null,
@@ -20,6 +20,13 @@ const AuthSlice = createSlice({
 			.addCase(registerAction.fulfilled, (state, action) => {
 			})
 			.addCase(registerAction.rejected, (state, action) => {
+			})
+		builder
+			.addCase(loginAction.pending, (state, action) => {
+			})
+			.addCase(loginAction.fulfilled, (state, action) => {
+			})
+			.addCase(loginAction.rejected, (state, action) => {
 			})
 	}
 

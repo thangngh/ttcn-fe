@@ -1,16 +1,11 @@
 import { toast } from "react-toastify";
+import { ILogin } from "../../type/auth/login.inteface";
 import { IRegister } from "../../type/auth/register.interface";
 import axiosConfig from "../axios.config";
 
 export const authAPI = {
 
-	register: async ({
-		fullName,
-		email,
-		userName,
-		passWord,
-		redirect
-	}: IRegister) => {
+	register: async ({ fullName, email, userName, passWord, redirect }: IRegister) => {
 		const payload = {
 			fullName,
 			email,
@@ -30,5 +25,23 @@ export const authAPI = {
 			toast.error(error.message);
 			return error;
 		}
+	},
+
+	login: async ({ userName, passWord, redirect }: ILogin) => {
+		const payLoad = { userName, passWord };
+		try {
+			const response = await axiosConfig.post("/auth/login", payLoad);
+
+			toast.success(response.data.content);
+
+			await new Promise((resolve) => setTimeout(() => {
+				redirect();
+			}, 1000));
+
+		} catch (error: any) {
+			toast.error(error.message);
+			return error;
+		}
+
 	}
 }

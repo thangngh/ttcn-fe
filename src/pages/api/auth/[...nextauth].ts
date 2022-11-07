@@ -1,6 +1,12 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import FaceBookProvider from "next-auth/providers/facebook";
+
+interface ISession {
+	email: string;
+	accessToken: string;
+}
+
 export default NextAuth({
 	providers: [
 		GoogleProvider({
@@ -19,19 +25,22 @@ export default NextAuth({
 	callbacks: {
 		async jwt({ token, account }) {
 			if (account) {
-				token.accessToken = account.access_token;
-				token.sub = account.provider;
+				token.accessToken = account.id_token;
+				token.sub = account.provider; //provider account
 			}
 			return token;
 		},
 		async session({ session, token, user }) {
-			// Send properties to the client, like an access_token and user id from a provider.
-			// session.user?.email = token.accessToken
-			// session.user.id = token.sub
-			console.log("session", session);
-			return session
+			(session.user as ISession).accessToken = token.accessToken as string;
+			(session.user as ISession).email = token.email as string;
+
+			return session;
 		},
 		async signIn({ user, account }) {
+			if (account?.provider === "google") {
+				account.accessToken = account?.id_token;
+			}
+
 			return true;
 		},
 	}

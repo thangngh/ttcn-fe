@@ -8,6 +8,9 @@ import * as Yup from "yup";
 import Link from "next/link";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import { useAppDispatch } from "../../../redux/hook";
+import { loginAction } from "../../../redux/action/auth/AuthAction";
+import { signIn, useSession } from "next-auth/react";
 const schemaValidation = Yup.object({
   userName: Yup.string()
     .required("Username is required")
@@ -21,6 +24,8 @@ const schemaValidation = Yup.object({
 
 const Login = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const session = useSession();
   const [redirect, setRedirect] = React.useState("/");
   const {
     register,
@@ -29,6 +34,8 @@ const Login = () => {
   } = useForm<ILogin>({
     resolver: yupResolver(schemaValidation),
   });
+
+  console.log("session", session);
 
   React.useEffect(() => {
     if (router.isReady) {
@@ -54,9 +61,28 @@ const Login = () => {
     router.push(url);
   };
 
-  const onLogin: SubmitHandler<ILogin> = async (data: ILogin) => {
-    console.log("Data login", data);
+  const handleRedirectFacebook = () => {
+    signIn("facebook");
   };
+
+  const handleRedirectGoogle = () => {
+    signIn("google");
+  };
+
+  const onLogin: SubmitHandler<ILogin> = async (data: ILogin) => {
+    const { userName, passWord } = data;
+    await dispatch(
+      loginAction({
+        userName,
+        passWord,
+        redirect: handleRedirect,
+      })
+    );
+  };
+
+  const onLoginFacebook = async () => {};
+
+  const onLoginGoogle = async () => {};
 
   return (
     <>
@@ -64,7 +90,7 @@ const Login = () => {
         <div className="flex flex-col justify-center items-center h-screen">
           <Logo />
           <div className="bg-white w-full sm:w-96 mt-6 p-4 rounded-lg shadow-lg">
-            <form onSubmit={handleSubmit(onLogin)}>
+            <form onSubmit={handleSubmit(onLogin as any)}>
               <div className="flex flex-col space-y-6">
                 <input
                   placeholder="User Name"
@@ -95,21 +121,30 @@ const Login = () => {
               >
                 Sign In
               </button>
-              <Link href={"/register"}>
+              <div
+                onClick={handleRegister}
+                // href={"/register"}
+              >
                 <p className="text-base text-red-500 cursor-pointer text-center my-6 hover:underline">
                   Need an account ?
                 </p>
-              </Link>
+              </div>
             </form>
             <div className="border-t border-gray-200 mt-6">
               <p className="text-center text-gray-400 py-4">OR </p>
-              <div className="flex items-center space-x-3 justify-center  my-2 border border-gray-300 rounded-lg w-full py-3 cursor-pointer hover:bg-gray-100">
+              <div
+                onClick={handleRedirectGoogle}
+                className="flex items-center space-x-3 justify-center  my-2 border border-gray-300 rounded-lg w-full py-3 cursor-pointer hover:bg-gray-100"
+              >
                 <GoogleIcon className="w-6 h-6 text-red-500 ml-[-14px]" />
                 <span className=" font-normal text-red-500 ">
                   Sign In With Google
                 </span>
               </div>
-              <div className="flex items-center space-x-3 justify-center  my-2 border border-gray-300 rounded-lg w-full py-3 cursor-pointer hover:bg-gray-100">
+              <div
+                onClick={handleRedirectFacebook}
+                className="flex items-center space-x-3 justify-center  my-2 border border-gray-300 rounded-lg w-full py-3 cursor-pointer hover:bg-gray-100"
+              >
                 <FacebookIcon className="w-6 h-6 text-red-500 " />
                 <span className=" font-normal text-red-500 ">
                   Sign In With Facebook
