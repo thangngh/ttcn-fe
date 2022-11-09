@@ -9,7 +9,10 @@ import Link from "next/link";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import { useAppDispatch } from "../../../redux/hook";
-import { loginAction } from "../../../redux/action/auth/AuthAction";
+import {
+  getProfileUserAction,
+  loginAction,
+} from "../../../redux/action/auth/AuthAction";
 import { signIn, useSession } from "next-auth/react";
 
 const schemaValidation = Yup.object({
@@ -43,8 +46,6 @@ const Login = () => {
       }
     }
   }, []);
-
-  React.useEffect(() => {}, []);
 
   const handleRegister = () => {
     router.push({
@@ -143,7 +144,8 @@ const Login = () => {
                 </span>
               </div>
               <div
-                onClick={handleRedirectFacebook}
+                // onClick={handleRedirectFacebook}
+                onClick={() => router.push("/login/facebook")}
                 className="flex items-center space-x-3 justify-center  my-2 border border-gray-300 rounded-lg w-full py-3 cursor-pointer hover:bg-gray-100"
               >
                 <FacebookIcon className="w-6 h-6 text-red-500 " />

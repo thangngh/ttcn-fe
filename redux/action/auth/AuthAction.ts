@@ -32,6 +32,7 @@ export const loginAction = createAsyncThunk(
 	}: ILogin) => {
 		const payLoad = { userName, passWord };
 		const response = await authAPI.login({ ...payLoad, redirect });
+		return response;
 	})
 
 export const loginWithGoogleAction = createAsyncThunk(
@@ -46,6 +47,14 @@ export const getRoleUserAction = createAsyncThunk(
 	"auth/getRoleUser",
 	async (userName: string) => {
 		const response = await authAPI.getRoleUser(userName);
+		return response;
+	}
+)
+
+export const getProfileUserAction = createAsyncThunk(
+	"users/getProfileUser",
+	async (accessToken: string) => {
+		const response = await authAPI.getProfileUser(accessToken);
 		return response;
 	}
 )

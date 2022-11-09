@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getRoleUserAction, loginAction, loginWithGoogleAction, registerAction } from "../action/auth/AuthAction";
+import { getProfileUserAction, getRoleUserAction, loginAction, loginWithGoogleAction, registerAction } from "../action/auth/AuthAction";
 
 const initState = {
 	error: null,
@@ -25,6 +25,7 @@ const AuthSlice = createSlice({
 			.addCase(loginAction.pending, (state, action) => {
 			})
 			.addCase(loginAction.fulfilled, (state, action) => {
+				console.log("login success", action.payload);
 			})
 			.addCase(loginAction.rejected, (state, action) => {
 			})
@@ -46,6 +47,14 @@ const AuthSlice = createSlice({
 			.addCase(getRoleUserAction.rejected, (state, action) => {
 				state.isLoading = false;
 				console.log(action.error);
+			})
+		builder
+			.addCase(getProfileUserAction.pending, (state, action) => {
+			})
+			.addCase(getProfileUserAction.fulfilled, (state, action) => {
+				console.log("getProfileUserAction", action.payload);
+			})
+			.addCase(getProfileUserAction.rejected, (state, action) => {
 			})
 	}
 

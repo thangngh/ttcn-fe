@@ -32,11 +32,16 @@ export const authAPI = {
 		try {
 			const response = await axiosConfig.post("/auth/login", payLoad);
 
-			toast.success(response.data.content);
+			toast.success(response.data.message);
 
-			await new Promise((resolve) => setTimeout(() => {
-				redirect();
-			}, 1000));
+			if (response.data.accessToken) {
+				localStorage.setItem("accessToken", response.data.accessToken);
+
+				await new Promise((resolve) => setTimeout(() => {
+					redirect();
+				}, 1000));
+			}
+			// return response.data;
 
 		} catch (error: any) {
 			toast.error(error.message);
@@ -71,5 +76,17 @@ export const authAPI = {
 			toast.error(error.message);
 			return error;
 		}
-	}
+	},
+
+	getProfileUser: async (accessToken: string) => {
+		try {
+			const response = await axiosConfig.get(`/users/profile/${accessToken}`);
+
+			console.log(response.data);
+			return response.data.content;
+		} catch (error: any) {
+			toast.error(error.message);
+			return error;
+		}
+	},
 }

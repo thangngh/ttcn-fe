@@ -29,8 +29,8 @@ const Header = () => {
           <Logo />
         </div>
         <div className="flex items-center justify-end space-x-6">
-          <div>Sign In</div>
-          <div className="bg-red-500 text-white px-4 py-2 rounded-md">
+          <div className="cursor-pointer">Sign In</div>
+          <div className="bg-red-500 text-white cursor-pointer px-4 py-2 rounded-md">
             Sign Up
           </div>
         </div>

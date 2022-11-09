@@ -4,13 +4,8 @@ import { useRouter } from "next/router";
 const Logo = () => {
   const router = useRouter();
 
-  const handleClickBack = () => {
-    router.back();
-  };
   return (
-    <div
-    // onClick={handleClickBack}
-    >
+    <div>
       <Image
         className="cursor-pointer"
         src={logo}

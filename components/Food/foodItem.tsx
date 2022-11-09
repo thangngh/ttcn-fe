@@ -5,14 +5,16 @@ const FoodItem = () => {
       <span className="bg-red-100 border border-red-500 rounded-full text-primary text-sm  px-4 py-1 inline-block mb-4 ">
         Breakfast
       </span>
-      <Image
-        className="mx-auto transform transition duration-300 hover:scale-105"
-        src={"https://i.ibb.co/ccZyWng/breakfast1.png"}
-        layout="responsive"
-        width={200}
-        height={200}
-        alt=""
-      />
+      <div className="block relative text-center">
+        <Image
+          className="bg-auto mx-auto transform transition duration-300 hover:scale-105 bg-center bg-no-repeat"
+          src={"https://i.ibb.co/ccZyWng/breakfast1.png"}
+          layout="fixed"
+          width={300}
+          height={300}
+          alt=""
+        />
+      </div>
       <div className="flex flex-col items-center my-3 space-y-2">
         <h1 className="text-gray-900  text-lg">Eggs Benedict</h1>
         <span className="text-gray-500  text-sm text-center">
