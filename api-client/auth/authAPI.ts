@@ -5,12 +5,13 @@ import axiosConfig from "../axios.config";
 
 export const authAPI = {
 
-	register: async ({ fullName, email, userName, passWord, redirect }: IRegister) => {
+	register: async ({ firstname, lastname, email, username, password, redirect }: IRegister) => {
 		const payload = {
-			fullName,
+			firstname,
+			lastname,
 			email,
-			userName,
-			passWord
+			username,
+			password
 		}
 		try {
 			const response = await axiosConfig.post("/auth/register", payload);
@@ -27,8 +28,8 @@ export const authAPI = {
 		}
 	},
 
-	login: async ({ userName, passWord, redirect }: ILogin) => {
-		const payLoad = { userName, passWord };
+	login: async ({ username, password, redirect }: ILogin) => {
+		const payLoad = { username, password };
 		try {
 			const response = await axiosConfig.post("/auth/login", payLoad);
 
@@ -41,7 +42,6 @@ export const authAPI = {
 					redirect();
 				}, 1000));
 			}
-			// return response.data;
 
 		} catch (error: any) {
 			toast.error(error.message);
@@ -65,28 +65,15 @@ export const authAPI = {
 		}
 	},
 
-	getRoleUser: async (userName: string) => {
+	getRoles: async () => {
 		try {
-			const response = await axiosConfig.get(`/auth/profile/get-role/${userName}`);
-
-			toast.success(response.data.content);
-
-			return response.data.content;
+			const response = await axiosConfig.get("/users/get-role");
+			return response.data;
 		} catch (error: any) {
 			toast.error(error.message);
 			return error;
 		}
 	},
 
-	getProfileUser: async (accessToken: string) => {
-		try {
-			const response = await axiosConfig.get(`/users/profile/${accessToken}`);
 
-			console.log(response.data);
-			return response.data.content;
-		} catch (error: any) {
-			toast.error(error.message);
-			return error;
-		}
-	},
 }

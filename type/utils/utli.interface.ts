@@ -14,25 +14,13 @@ export interface IAddress {
 	country: string;
 }
 
-export interface IUser {
-	address?: IAddress;
-	avatarPath?: string;
-	avatarThumbnailPath?: string;
-	createdAt?: string;
-	email?: string;
-	fullName?: IFullName;
-	id?: string;
-	passWord?: string;
-	phone?: string;
-	providerType?: ProviderType;
-	securityCode?: string;
-	updatedAt?: string;
-	userName?: string;
-	sex?: string;
-
-}
 
 export interface IError {
 	statusCode: number
 	message: string;
+}
+
+export enum gender {
+	FEMALE = 'FEMALE',
+	MALE = 'MALE'
 }

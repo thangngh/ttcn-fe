@@ -10,8 +10,17 @@ import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import { useAppDispatch } from "../../../redux/hook";
 import { registerAction } from "../../../redux/action/auth/AuthAction";
+import Screen from "../../layouts/Screen";
 
 const schemaValidation = Yup.object({
+  firstname: Yup.string()
+    .required("First name is required")
+    .trim("First name is required")
+    .max(20, "First name is too long"),
+  lastname: Yup.string()
+    .required("Last name is required")
+    .trim("Last name is required")
+    .max(20, "Last name is too long"),
   email: Yup.string()
     .required("Email is required")
     .trim("Email is required")
@@ -19,11 +28,11 @@ const schemaValidation = Yup.object({
     .matches(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm, {
       message: "Email is invalid",
     }),
-  userName: Yup.string()
+  username: Yup.string()
     .required("Username is required")
     .trim("Username is required")
     .max(20, "Username is too long"),
-  passWord: Yup.string()
+  password: Yup.string()
     .required("Password is required")
     .trim("Password is required")
     .max(20, "Password is too long")
@@ -34,16 +43,6 @@ const schemaValidation = Yup.object({
           "Password must contain at least 1 uppercase, 1 lowercase, 1 number and 1 special character",
       }
     ),
-  fullName: Yup.object().shape({
-    firstName: Yup.string()
-      .required("First name is required")
-      .trim("First name is required")
-      .max(20, "First name is too long"),
-    lastName: Yup.string()
-      .required("Last name is required")
-      .trim("Last name is required")
-      .max(20, "Last name is too long"),
-  }),
 });
 
 const Register = () => {
@@ -76,55 +75,52 @@ const Register = () => {
   };
 
   const onRegister: SubmitHandler<IRegister> = async (data: IRegister) => {
-    const { email, passWord, userName, fullName } = data;
+    const { email, password, username, firstname, lastname } = data;
     await dispatch(
       registerAction({
         email,
-        passWord,
-        userName,
-        fullName,
+        password,
+        username,
+        firstname,
+        lastname,
         redirect: handleRedirectToLogin,
       })
     );
   };
 
   return (
-    <div className="h-max w-full banner">
-      <div className="flex flex-col justify-center items-center h-auto">
-        <Logo />
-        <div className="bg-white w-full sm:w-96 mt-6 p-4 rounded-lg shadow-lg">
+    <div className="h-max w-full">
+      <div className="flex flex-col justify-center  items-center h-auto">
+        <div className="bg-white w-full max-w-sm  shadow-card-layout mt-6 p-4 rounded-lg ">
+          <h1 className="text-2xl my-3 font-medium">Register your account</h1>
           <form onSubmit={handleSubmit(onRegister as any)}>
             <div className="flex flex-col space-y-6">
               <div className="space-y-6 flex-1">
                 <input
                   type="text"
                   placeholder="First name"
-                  {...register("fullName.firstName")}
+                  {...register("firstname")}
                   className={`w-full px-4 py-3 rounded-lg ${
-                    errors.fullName?.firstName
-                      ? "ring-red-200"
-                      : "ring-green-200"
+                    errors.firstname ? "ring-red-200" : "ring-green-200"
                   } focus:ring-4 focus:outline-none transition duration-300 border border-gray-300 focus:shadow-xl`}
                 />
-                {errors.fullName?.firstName && (
+                {errors.firstname && (
                   <p className="text-red-500 text-sm mt-0">
-                    {errors.fullName?.firstName.message}
+                    {errors.firstname.message}
                   </p>
                 )}
 
                 <input
                   type="text"
                   placeholder="Last name"
-                  {...register("fullName.lastName")}
+                  {...register("lastname")}
                   className={`w-full px-4 py-3 rounded-lg ${
-                    errors.fullName?.lastName
-                      ? "ring-red-200"
-                      : "ring-green-200"
+                    errors.lastname ? "ring-red-200" : "ring-green-200"
                   } focus:ring-4 focus:outline-none transition duration-300 border border-gray-300 focus:shadow-xl`}
                 />
-                {errors.fullName?.lastName && (
+                {errors.lastname && (
                   <p className="text-red-500 text-sm mt-0">
-                    {errors.fullName.lastName.message}
+                    {errors.lastname.message}
                   </p>
                 )}
               </div>
@@ -144,27 +140,27 @@ const Register = () => {
               <input
                 type="text"
                 placeholder="Username"
-                {...register("userName")}
+                {...register("username")}
                 className={`w-full px-4 py-3 rounded-lg ${
-                  errors.userName ? "ring-red-200" : "ring-green-200"
+                  errors.username ? "ring-red-200" : "ring-green-200"
                 } focus:ring-4 focus:outline-none transition duration-300 border border-gray-300 focus:shadow-xl`}
               />
-              {errors.userName && (
+              {errors.username && (
                 <p className="text-red-500 text-sm mt-0">
-                  {errors.userName.message}
+                  {errors.username.message}
                 </p>
               )}
               <input
                 type="password"
                 placeholder="passWord"
-                {...register("passWord")}
+                {...register("password")}
                 className={`w-full px-4 py-3 rounded-lg ${
-                  errors.passWord ? "ring-red-200" : "ring-green-200"
+                  errors.password ? "ring-red-200" : "ring-green-200"
                 } focus:ring-4 focus:outline-none transition duration-300 border border-gray-300 focus:shadow-xl`}
               />
-              {errors.passWord && (
+              {errors.password && (
                 <p className="text-red-500 text-sm mt-0">
-                  {errors.passWord.message}
+                  {errors.password.message}
                 </p>
               )}
               {/* <input
@@ -193,15 +189,15 @@ const Register = () => {
           </form>
           <div className="border-t border-gray-200 mt-6">
             <p className="text-center text-gray-400 py-4">OR</p>
-            <div className="flex items-center space-x-3 justify-center my-2 border border-gray-300 rounded-lg w-full py-3 cursor-pointer hover:bg-gray-100">
+            <div className="flex shadow-card-layout-sm items-center space-x-3 justify-center my-2 border border-gray-300 rounded-lg w-full py-3 cursor-pointer hover:bg-gray-100">
               <GoogleIcon className="w-6 h-6 text-red-500 ml-[-14px]" />
-              <span className="font-normal text-red-500">
+              <span className="font-medium text-red-500">
                 Sign up with Google
               </span>
             </div>
-            <div className="flex items-center space-x-3 justify-center  my-2 border border-gray-300 rounded-lg w-full py-3 cursor-pointer hover:bg-gray-100">
+            <div className="flex shadow-card-layout-sm items-center space-x-3 justify-center  my-2 border border-gray-300 rounded-lg w-full py-3 cursor-pointer hover:bg-gray-100">
               <FacebookIcon className="w-6 h-6 text-red-500 " />
-              <span className=" font-normal text-red-500 ">
+              <span className=" font-medium text-red-500 ">
                 Sign up With Facebook
               </span>
             </div>

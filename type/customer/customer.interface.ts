@@ -1,5 +1,5 @@
-import { IUser } from "../utils/utli.interface";
+import { IUser } from "../users/users.interface";
 
-export interface ICustomer extends IUser {
+export interface IUserProfile extends IUser {
 	role?: string;
 }

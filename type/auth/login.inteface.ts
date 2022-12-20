@@ -1,8 +1,8 @@
 
 
 export interface IPayload {
-	userName: string;
-	passWord: string;
+	username: string;
+	password: string;
 }
 
 export interface IRedirect {

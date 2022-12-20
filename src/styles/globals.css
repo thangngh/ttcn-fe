@@ -20,8 +20,85 @@ a {
 }
 
 .banner {
-  background-image: url('../assets/bannerbackground.png');
+  background-image: url('../assets/undraw_handcrafts_search_files.png');
   background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  background-position: right;
+  background-size: contain;
 }
+
+@layer components {
+  .sidebar{
+    transition:all .4s ease-in-out;
+  }
+}
+
+/* 12/14 base rules are converted successfully. */
+/* Gather results from the console with `copy(window.cssToTailwindResults)` */
+
+/* ℹ️ Base selector: .featured */
+/* ✨ TailwindCSS: "p-2" */
+/* ⚠️ Some properties could not be matched with Tailwind classes. Use @apply to extend a CSS rule: */
+.featured {
+  @apply p-2;
+  flex-grow: 2;
+  box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+}
+
+/* ℹ️ Base selector: .featured .top */
+/* ✨ TailwindCSS: "flex items-center justify-between" */
+/* ⚠️ Some properties could not be matched with Tailwind classes. Use @apply to extend a CSS rule: */
+.featured .top {
+  @apply flex items-center justify-between;
+  color: rgba(128, 128, 128, 1);
+}
+
+/* ℹ️ Base selector: .featured .top .title */
+/* ✨ TailwindCSS: "font-medium text-base" */
+
+/* ℹ️ Base selector: .featured .bottom */
+/* ✨ TailwindCSS: "flex flex-col items-center justify-center p-5 gap-4" */
+
+/* ℹ️ Base selector: .featured .bottom .featuredChart */
+/* ✨ TailwindCSS: "h-24 w-24" */
+
+/* ℹ️ Base selector: .featured .bottom .title */
+/* ✨ TailwindCSS: "font-medium" */
+/* ⚠️ Some properties could not be matched with Tailwind classes. Use @apply to extend a CSS rule: */
+.featured .bottom .title {
+  @apply font-medium;
+  color: rgba(128, 128, 128, 1);
+}
+
+/* ℹ️ Base selector: .featured .bottom .amount */
+/* ✨ TailwindCSS: "text-3xl" */
+
+/* ℹ️ Base selector: .featured .bottom .desc */
+/* ✨ TailwindCSS: "font-light text-xs text-center" */
+/* ⚠️ Some properties could not be matched with Tailwind classes. Use @apply to extend a CSS rule: */
+.featured .bottom .desc {
+  @apply font-light text-xs text-center;
+  color: rgba(128, 128, 128, 1);
+}
+
+/* ℹ️ Base selector: .featured .bottom .summary */
+/* ✨ TailwindCSS: "flex items-center justify-between w-full" */
+
+/* ℹ️ Base selector: .featured .bottom .summary .item */
+/* ✨ TailwindCSS: "text-center" */
+
+/* ℹ️ Base selector: .featured .bottom .summary .item .itemTitle */
+/* ✨ TailwindCSS: "text-sm" */
+/* ⚠️ Some properties could not be matched with Tailwind classes. Use @apply to extend a CSS rule: */
+.featured .bottom .summary .item .itemTitle {
+  @apply text-sm;
+  color: rgba(128, 128, 128, 1);
+}
+
+/* ℹ️ Base selector: .featured .bottom .summary .item .itemResult */
+/* ✨ TailwindCSS: "flex items-center text-sm mt-2" */
+
+/* ℹ️ Base selector: .featured .bottom .summary .item .itemResult.positive */
+/* ❌ Could not match any TailwindCSS classes. */
+
+/* ℹ️ Base selector: .featured .bottom .summary .item .itemResult.negative */
+/* ❌ Could not match any TailwindCSS classes. */

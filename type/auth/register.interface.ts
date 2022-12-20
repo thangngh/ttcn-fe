@@ -2,10 +2,11 @@ import { IFullName } from "../utils/utli.interface";
 
 
 export interface IPayLoad {
-	fullName: IFullName;
+	firstname: string;
+	lastname: string;
 	email: string;
-	userName: string;
-	passWord: string;
+	username: string;
+	password: string;
 }
 
 export interface IRedirect {

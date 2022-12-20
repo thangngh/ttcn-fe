@@ -1,11 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getProfileUserAction, getRoleUserAction, loginAction, loginWithGoogleAction, registerAction } from "../action/auth/AuthAction";
+import { ProviderType } from "../../type/utils/utli.interface";
+import { loginAction, loginWithGoogleAction, registerAction } from "../action/auth/AuthAction";
 
-const initState = {
+interface initState {
+	error: any,
+	isLoading: boolean,
+	success: any,
+	role: null,
+}
+
+const initState: initState = {
 	error: null,
 	isLoading: false,
 	success: null,
-	content: null,
+	role: null,
 }
 
 const AuthSlice = createSlice({
@@ -25,7 +33,6 @@ const AuthSlice = createSlice({
 			.addCase(loginAction.pending, (state, action) => {
 			})
 			.addCase(loginAction.fulfilled, (state, action) => {
-				console.log("login success", action.payload);
 			})
 			.addCase(loginAction.rejected, (state, action) => {
 			})
@@ -35,26 +42,6 @@ const AuthSlice = createSlice({
 			.addCase(loginWithGoogleAction.fulfilled, (state, action) => {
 			})
 			.addCase(loginWithGoogleAction.rejected, (state, action) => {
-			})
-		builder
-			.addCase(getRoleUserAction.pending, (state, action) => {
-				state.isLoading = true;
-			})
-			.addCase(getRoleUserAction.fulfilled, (state, action) => {
-				state.isLoading = false;
-				state.content = action.payload;
-			})
-			.addCase(getRoleUserAction.rejected, (state, action) => {
-				state.isLoading = false;
-				console.log(action.error);
-			})
-		builder
-			.addCase(getProfileUserAction.pending, (state, action) => {
-			})
-			.addCase(getProfileUserAction.fulfilled, (state, action) => {
-				console.log("getProfileUserAction", action.payload);
-			})
-			.addCase(getProfileUserAction.rejected, (state, action) => {
 			})
 	}
 

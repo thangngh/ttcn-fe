@@ -6,31 +6,32 @@ import { IRegister } from "../../../type/auth/register.interface";
 export const registerAction = createAsyncThunk(
 	"auth/register",
 	async ({
-		fullName,
+		firstname,
+		lastname,
 		email,
-		userName,
-		passWord,
+		username,
+		password,
 		redirect
 	}: IRegister) => {
 		const payload = {
-			fullName,
+			firstname,
+			lastname,
 			email,
-			userName,
-			passWord
+			username,
+			password
 		}
-		const response = await authAPI.register({ ...payload, redirect });
-		// return response;
+		await authAPI.register({ ...payload, redirect });
 	}
 )
 
 export const loginAction = createAsyncThunk(
 	"auth/login",
 	async ({
-		userName,
-		passWord,
+		username,
+		password,
 		redirect
 	}: ILogin) => {
-		const payLoad = { userName, passWord };
+		const payLoad = { username, password };
 		const response = await authAPI.login({ ...payLoad, redirect });
 		return response;
 	})
@@ -43,18 +44,3 @@ export const loginWithGoogleAction = createAsyncThunk(
 	}
 )
 
-export const getRoleUserAction = createAsyncThunk(
-	"auth/getRoleUser",
-	async (userName: string) => {
-		const response = await authAPI.getRoleUser(userName);
-		return response;
-	}
-)
-
-export const getProfileUserAction = createAsyncThunk(
-	"users/getProfileUser",
-	async (accessToken: string) => {
-		const response = await authAPI.getProfileUser(accessToken);
-		return response;
-	}
-)
