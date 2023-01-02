@@ -92,7 +92,8 @@ const Profile = () => {
   };
 
   const handleSendMail = async (email: string) => {
-    await dispatch(sendMailResetPassword(email));
+    console.log(email);
+    await dispatch(sendMailResetPassword(JSON.stringify(email)));
   };
   return (
     <Screen>
@@ -262,7 +263,10 @@ const Profile = () => {
             >
               <div className="flex items-center space-x-4 justify-between">
                 <span>Đổi mật khẩu</span>
-                <span className="text-sm cursor-pointer font-medium hover:underline my-4">
+                <span
+                  onClick={() => handleSendMail(user?.email)}
+                  className="text-sm cursor-pointer font-medium hover:underline my-4"
+                >
                   <i>Cấp lại mật khẩu</i>
                 </span>
               </div>

@@ -1,7 +1,7 @@
 import { Box, Modal, Typography } from "@mui/material";
 import React from "react";
 import Image from "next/image";
-import { addImage } from "../../redux/reducer/ProductSlice";
+// import { addImage } from "../../redux/reducer/ProductSlice";
 import { useAppDispatch } from "../../redux/hook";
 const Button = () => {
   const [open, setOpen] = React.useState(false);

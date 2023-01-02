@@ -112,7 +112,7 @@ export const UserAPI = {
 
 	sendMailResetPassword: async (email: string) => {
 		try {
-			const response = await axiosConfig.post("/users/reset-password", email);
+			const response = await axiosConfig.post("/auth/reset-password", email);
 			return response.data;
 		} catch (error: any) {
 			return error;
@@ -124,7 +124,7 @@ export const UserAPI = {
 		token
 	}: { password: string, token: string }) => {
 		try {
-			const response = await axiosConfig.post("/users/change-password-with-verify-token", { password, token });
+			const response = await axiosConfig.post("/auth/change-password-with-verify-token", { password, token });
 			return response.data;
 		} catch (error: any) {
 			return error;
@@ -138,7 +138,7 @@ export const UserAPI = {
 		}: { oldPassword: string, newPassword: string }
 	) => {
 		try {
-			const response = await axiosConfig.post("/users/change-password", { oldPassword, newPassword });
+			const response = await axiosConfig.post("/auth/change-password", { oldPassword, newPassword });
 			return response.data;
 		} catch (error: any) {
 			return error;
