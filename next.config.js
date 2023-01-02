@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
+      "lh3.googleusercontent.com",
       "localhost",
       "i.ibb.co",
       "hanoicomputercdn.com",
@@ -13,6 +14,7 @@ const nextConfig = {
   },
   imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   swcMinify: true,
+  env: process.env.API_URL,
 };
 
 module.exports = nextConfig;

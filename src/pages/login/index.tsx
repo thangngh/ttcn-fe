@@ -9,24 +9,23 @@ import Link from "next/link";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import { useAppDispatch } from "../../../redux/hook";
-import { loginAction } from "../../../redux/action/auth/AuthAction";
-import { signIn, useSession } from "next-auth/react";
+import {
+  loginAction,
+  loginWithGoogleAction,
+} from "../../../redux/action/auth/AuthAction";
+import { signIn, getSession } from "next-auth/react";
 import Screen from "../../layouts/Screen";
+import { ISession } from "../api/auth/[...nextauth]";
 const schemaValidation = Yup.object({
   username: Yup.string()
-    .required("Username is required")
-    .trim("Username is required")
-    .max(20, "Username is too long"),
-  password: Yup.string()
-    .required("Password is required")
-    .trim("Password is required")
-    .max(20, "Password is too long"),
+    .required("tài khoản yêu cầu")
+    .trim("tài khoản yêu cầu"),
+  password: Yup.string().required("Password yêu cầu").trim("Password yêu cầu"),
 });
 
 const Login = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const session = useSession();
   const [redirect, setRedirect] = React.useState("/");
   const {
     register,
@@ -35,6 +34,20 @@ const Login = () => {
   } = useForm<ILogin>({
     resolver: yupResolver(schemaValidation),
   });
+
+  React.useEffect(() => {
+    (async () => {
+      const session = await getSession();
+
+      console.log("session", session);
+      if (session) {
+        onLoginGoogle({
+          accessToken: (session.user as ISession).accessToken,
+          redirect: handleRedirect,
+        });
+      }
+    })();
+  }, []);
 
   React.useEffect(() => {
     if (router.isReady) {
@@ -81,18 +94,26 @@ const Login = () => {
 
   const onLoginFacebook = async () => {};
 
-  const onLoginGoogle = async (payload: ILoginGoogle) => {};
+  const onLoginGoogle = async (payload: ILoginGoogle) => {
+    const { accessToken, redirect } = payload;
+    await dispatch(
+      loginWithGoogleAction({
+        accessToken,
+        redirect,
+      })
+    );
+  };
 
   return (
     <>
       <div className="h-screen w-full">
         <div className="flex flex-col justify-center items-center h-screen">
           <div className="bg-white w-full max-w-sm mt-6 p-4 rounded-lg shadow-card-layout">
-            <h1 className="text-2xl my-3 font-medium">Login to your account</h1>
+            <h1 className="text-2xl my-3 font-medium">Đăng nhập tài khoản</h1>
             <form onSubmit={handleSubmit(onLogin as any)}>
               <div className="flex flex-col space-y-6">
                 <input
-                  placeholder="User Name"
+                  placeholder="tài khoản"
                   type="text"
                   {...register("username")}
                   className="w-full px-4 py-3 rounded-lg ring-red-200 focus:ring-4 focus:outline-none transition duration-300 border border-gray-300 focus:shadow-xl"
@@ -103,7 +124,7 @@ const Login = () => {
                   </p>
                 )}
                 <input
-                  placeholder="Password"
+                  placeholder="mật khẩu"
                   type="password"
                   {...register("password")}
                   className="w-full px-4 py-3 rounded-lg ring-red-200 focus:ring-4 focus:outline-none transition duration-300 border border-gray-300 focus:shadow-xl"
@@ -118,14 +139,11 @@ const Login = () => {
                 type="submit"
                 className="bg-red-500 text-white shadow-card-layout-sm block text-center 3xl:text-xl rounded-lg py-2 px-5 w-full  mt-4 mx-auto"
               >
-                Sign In
+                Đăng nhập
               </button>
-              <div
-                onClick={handleRegister}
-                // href={"/register"}
-              >
+              <div onClick={handleRegister}>
                 <p className="text-base text-red-500 cursor-pointer text-center my-6 hover:underline">
-                  Need an account ?
+                  Tạo tài khoản mới?
                 </p>
               </div>
             </form>
@@ -137,7 +155,7 @@ const Login = () => {
               >
                 <GoogleIcon className="w-6 h-6 text-red-500 ml-[-14px]" />
                 <span className=" font-medium text-red-500 ">
-                  Sign In With Google
+                  Đăng nhập bằng Google
                 </span>
               </div>
               <div
@@ -147,7 +165,7 @@ const Login = () => {
               >
                 <FacebookIcon className="w-6 h-6 text-red-500 " />
                 <span className=" font-medium text-red-500 ">
-                  Sign In With Facebook
+                  Đăng nhập bằng Facebook
                 </span>
               </div>
             </div>

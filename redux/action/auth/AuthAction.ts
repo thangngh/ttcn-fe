@@ -41,6 +41,7 @@ export const loginWithGoogleAction = createAsyncThunk(
 	async ({ accessToken, googleAddress, redirect }: ILoginGoogle) => {
 		const payLoad = { accessToken, googleAddress };
 		const response = await authAPI.loginWithGoogle({ ...payLoad, redirect })
+		return response;
 	}
 )
 

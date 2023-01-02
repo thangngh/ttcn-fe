@@ -13,7 +13,7 @@ export interface ILogin extends IPayload, IRedirect {
 
 export interface ILoginGoogleResponse {
 	accessToken: string;
-	googleAddress: string;
+	googleAddress?: string;
 }
 
 export interface ILoginGoogle extends ILoginGoogleResponse, IRedirect {

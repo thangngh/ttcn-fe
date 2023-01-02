@@ -55,7 +55,7 @@ const MyShopScreen = ({ children }: IProps) => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+    <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white  text-black dark:text-white">
       <SlideBar data={data} />
       {children}
     </div>

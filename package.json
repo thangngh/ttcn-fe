@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.8.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@hookform/resolvers": "^2.9.8",
@@ -17,11 +18,14 @@
     "@mui/x-data-grid": "^5.17.13",
     "@mui/x-data-grid-pro": "^5.17.16",
     "@reduxjs/toolkit": "^1.8.5",
+    "antd": "^5.1.0",
     "axios": "^0.27.2",
+    "babel-plugin-import": "^1.13.5",
     "cookies": "^0.8.0",
     "http-proxy": "^1.18.1",
     "next": "12.3.1",
     "next-auth": "^4.15.0",
+    "next-plugin-antd-less": "^0.3.0",
     "react": "18.2.0",
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "18.2.0",

@@ -210,7 +210,7 @@ const Header = () => {
                                     <div className="text-gray-900">
                                       <Link href="/profile">
                                         <div className="p-1 my-1 border-l-2 border-white  cursor-pointer ">
-                                          <a>Profile</a>
+                                          <a>Hồ Sơ</a>
                                         </div>
                                       </Link>
                                       <hr />
@@ -219,7 +219,7 @@ const Header = () => {
                                         className="p-1 my-1 border-l-2  border-white cursor-pointer "
                                         onClick={logout}
                                       >
-                                        <span>Logout</span>
+                                        <span>Đăng xuất</span>
                                       </div>
                                     </div>
                                   </div>
@@ -264,7 +264,7 @@ const Header = () => {
                                     <div className="text-gray-900">
                                       <Link href="/profile">
                                         <div className="p-1 my-1 border-l-2 border-white hover:border-[#848ABD] hover:text-[#848ABD] cursor-pointer ">
-                                          <a>Profile</a>
+                                          <a>Hồ Sơ</a>
                                         </div>
                                       </Link>
                                       <hr />
@@ -273,7 +273,7 @@ const Header = () => {
                                         className="p-1 my-1 border-l-2  border-white hover:border-[#848ABD] hover:text-[#848ABD] cursor-pointer "
                                         onClick={logout}
                                       >
-                                        <span>Logout</span>
+                                        <span>Đăng xuất</span>
                                       </div>
                                     </div>
                                   </div>
@@ -296,11 +296,11 @@ const Header = () => {
                   ) : (
                     <div className="inline-flex space-x-3">
                       <div className="cursor-pointer text-sm font-medium hover:underline hidden md:block">
-                        <Link href={"/login"}>Sign In</Link>
+                        <Link href={"/login"}>Đăng Nhập</Link>
                       </div>
 
                       <div className="cursor-pointer  text-sm font-medium hover:underline hidden md:block">
-                        <Link href={"/register"}>Sign Up</Link>
+                        <Link href={"/register"}>Đăng Ký</Link>
                       </div>
                     </div>
                   )}

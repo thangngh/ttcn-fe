@@ -53,7 +53,6 @@ export const UserAPI = {
 		try {
 			const formData = new FormData();
 			formData.append("file", image);
-
 			const response = await axiosConfig.post(`/users/upload-image/${userId}/image`, formData)
 
 			return response.data
@@ -75,6 +74,71 @@ export const UserAPI = {
 	getShopByUser: async () => {
 		try {
 			const response = await axiosConfig.get("/shop/get-shop/onwer");
+			return response.data;
+		} catch (error: any) {
+			return error;
+		}
+	},
+
+	createShop: async (payload: {
+		name: string,
+		description: string
+		phone?: string,
+		email?: string,
+		userid: string,
+		address?: {
+			city: string,
+			district: string,
+			country: string,
+			street: string,
+		}
+	}) => {
+		try {
+			const response = await axiosConfig.post("/shop/create-shop/owner", payload);
+			return response.data;
+		} catch (error: any) {
+			return error;
+		}
+	},
+
+	getShopById: async (shopId: string) => {
+		try {
+			const response = await axiosConfig.get(`/shop/get-shop/${shopId}`);
+			return response.data;
+		} catch (error: any) {
+			return error;
+		}
+	},
+
+	sendMailResetPassword: async (email: string) => {
+		try {
+			const response = await axiosConfig.post("/users/reset-password", email);
+			return response.data;
+		} catch (error: any) {
+			return error;
+		}
+	},
+
+	resetPasswordWithVerifyCode: async ({
+		password,
+		token
+	}: { password: string, token: string }) => {
+		try {
+			const response = await axiosConfig.post("/users/change-password-with-verify-token", { password, token });
+			return response.data;
+		} catch (error: any) {
+			return error;
+		}
+	},
+
+	resetPassword: async (
+		{
+			oldPassword,
+			newPassword
+		}: { oldPassword: string, newPassword: string }
+	) => {
+		try {
+			const response = await axiosConfig.post("/users/change-password", { oldPassword, newPassword });
 			return response.data;
 		} catch (error: any) {
 			return error;

@@ -68,3 +68,60 @@ export const getShopByUser = createAsyncThunk(
 		return response
 	}
 )
+
+export const createShop = createAsyncThunk(
+	"shop/createShop",
+	async (payload: {
+		name: string,
+		description: string
+		phone?: string,
+		email?: string,
+		userid: string,
+		address?: {
+			city: string,
+			district: string,
+			country: string,
+			street: string,
+		}
+	}) => {
+		const response = await UserAPI.createShop(payload);
+
+		return response
+	}
+)
+
+export const getShopById = createAsyncThunk(
+	"shop/getShopById",
+	async (id: string) => {
+		const response = await UserAPI.getShopById(id);
+
+		return response
+	}
+)
+
+export const sendMailResetPassword = createAsyncThunk(
+	"users/sendMailResetPassword",
+	async (email: string) => {
+		const response = await UserAPI.sendMailResetPassword(email);
+
+		return response
+	}
+)
+
+export const resetPasswordWithVerifyCode = createAsyncThunk(
+	"users/resetPasswordWithVerifyCode",
+	async (payload: { password: string, token: string }) => {
+		const response = await UserAPI.resetPasswordWithVerifyCode(payload);
+
+		return response
+	}
+)
+
+export const changePassword = createAsyncThunk(
+	"users/changePassword",
+	async (payload: { oldPassword: string, newPassword: string }) => {
+		const response = await UserAPI.resetPassword(payload);
+
+		return response
+	}
+)

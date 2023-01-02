@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import store from "../../redux/store";
 import { ToastContainer } from "react-toastify";
 import LayoutGuard from "../layouts/LayoutGuard";
+import "antd/dist/reset.css";
 function MyApp({
   Component,
   pageProps: { session, ...pageProps },

@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import FaceBookProvider from "next-auth/providers/facebook";
 
-interface ISession {
+export interface ISession {
 	email: string;
 	accessToken: string;
 }

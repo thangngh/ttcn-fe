@@ -11,4 +11,20 @@ export const CategoryAPI = {
 		return response.data;
 	},
 
+	updateCategory: async ({ id, name, updateat }: { id: string, name: string, updateat: Date }) => {
+		const response = await axiosConfig.patch(`/category/update-category/${id}`, { name, updateat })
+		return response.data;
+	},
+
+	getAllCategory: async () => {
+		const response = await axiosConfig.get(`/category/get-all-categories`)
+		return response.data;
+	},
+
+	findProductByCategory: async (name: string) => {
+		const response = await axiosConfig.get(`/category/find-product-categories?name=${name}`)
+		return response.data;
+	}
+
+
 }

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { toast } from "react-toastify";
 import { IUserProfile } from "../../type/customer/customer.interface";
 import { IUser } from "../../type/users/users.interface";
-import { becomeShopper, editProfile, getAllUsersAction, getProfile, getRole, getShopByUser, uploadAvatar } from "../action/users/userAction";
+import { becomeShopper, changePassword, createShop, editProfile, getAllUsersAction, getProfile, getRole, getShopById, getShopByUser, resetPasswordWithVerifyCode, sendMailResetPassword, uploadAvatar } from "../action/users/userAction";
 
 interface initialState {
 	error: any,
@@ -133,6 +133,75 @@ const UserSlice = createSlice({
 			.addCase(getShopByUser.rejected, (state, action) => {
 				state.isLoading = false;
 				state.error = action.payload;
+			})
+		builder
+			.addCase(createShop.pending, (state, action) => {
+				state.isLoading = true;
+			})
+			.addCase(createShop.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.success = action.payload;
+				toast.success("Create shop successfully");
+			})
+			.addCase(createShop.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.payload;
+				toast.error("Create shop failed");
+			})
+		builder
+			.addCase(getShopById.pending, (state, action) => {
+				state.isLoading = true;
+			})
+			.addCase(getShopById.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.shop = action.payload?.content;
+				console.log("action.payload", action.payload?.content);
+			})
+			.addCase(getShopById.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.payload;
+			})
+		builder
+			.addCase(sendMailResetPassword.pending, (state, action) => {
+				state.isLoading = true;
+			})
+			.addCase(sendMailResetPassword.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.success = action.payload;
+				toast.success("Send mail successfully");
+			})
+			.addCase(sendMailResetPassword.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.payload;
+				toast.error("Send mail failed");
+			})
+		builder
+			.addCase(resetPasswordWithVerifyCode.pending, (state, action) => {
+				state.isLoading = true;
+			})
+			.addCase(resetPasswordWithVerifyCode.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.success = action.payload;
+				toast.success("Reset password successfully");
+			})
+			.addCase(resetPasswordWithVerifyCode.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.payload;
+				toast.error("Reset password failed");
+			})
+		builder
+			.addCase(changePassword.pending, (state, action) => {
+				state.isLoading = true;
+			})
+			.addCase(changePassword.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.success = action.payload;
+				toast.success("Change password successfully");
+			})
+			.addCase(changePassword.rejected, (state, action) => {
+				state.isLoading = false;
+				state.error = action.payload;
+				toast.error("Change password failed");
 			})
 	}
 })

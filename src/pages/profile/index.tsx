@@ -16,6 +16,7 @@ import {
   editProfile,
   getAvatar,
   getProfile,
+  sendMailResetPassword,
   uploadAvatar,
 } from "../../../redux/action/users/userAction";
 import { RootState } from "../../../redux/store";
@@ -89,15 +90,19 @@ const Profile = () => {
     setImageUrl(URL.createObjectURL(e.target.files[0]));
     setImage(e.target.files[0]);
   };
+
+  const handleSendMail = async (email: string) => {
+    await dispatch(sendMailResetPassword(email));
+  };
   return (
     <Screen>
       <div className="w-full mb-5">
         <div className="w-full sm:container  px-4 relative flex items-center  flex-wrap sm:flex-nowrap justify-end container mx-[15px] sm:mx-auto space-3">
           <div
             onClick={() => router.push("/myshop/dashboard")}
-            className="px-2 py-2 bg-red-300 text-white font-semibold cursor-pointer rounded-md"
+            className="px-2 py-2 bg-red-500 text-white font-semibold cursor-pointer rounded-md"
           >
-            <span>My shop</span>
+            <span>Shop của tôi</span>
           </div>
         </div>
       </div>
@@ -255,12 +260,17 @@ const Profile = () => {
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
             >
-              <span>Đổi mật khẩu</span>
+              <div className="flex items-center space-x-4 justify-between">
+                <span>Đổi mật khẩu</span>
+                <span className="text-sm cursor-pointer font-medium hover:underline my-4">
+                  <i>Cấp lại mật khẩu</i>
+                </span>
+              </div>
             </AccordionSummary>
             <AccordionDetails>
               <form className="space-4 my-4 w-[90%] mx-auto">
                 <div className="flex space-x-4 flex-wrap-reverse sm:flex-nowrap">
-                  <div className="space-y-4">
+                  <div className="space-y-5">
                     <div className="flex flex-col">
                       <label htmlFor="pass-current">Mật khẩu hiện tại</label>
                       <input
@@ -288,6 +298,7 @@ const Profile = () => {
                         className="border border-gray-300 rounded-md px-2 py-1"
                       />
                     </div>
+
                     <div className="flex flex-col">
                       <button type="submit">
                         <span className="text-sm font-normal text-white bg-red-400 rounded-md px-4 py-3 ">

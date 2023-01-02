@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { toast } from "react-toastify"
-import { createCategoryAction, getCategoryByShopIdAction } from "../action/category/categoryAction"
+import { createCategoryAction, getAllCategoryAction, getCategoryByShopIdAction, updateCategoryAction } from "../action/category/categoryAction"
 
 interface initialState {
-	categoryList: any[]
+	categoryList: any[],
+	allCategory: any[],
 }
 
 const initialState: initialState = {
 	categoryList: [],
+	allCategory: [],
 }
 
 const CategorySlice = createSlice({
@@ -34,6 +36,28 @@ const CategorySlice = createSlice({
 				toast.success("Create category successfully")
 			})
 			.addCase(createCategoryAction.rejected, (state, action) => {
+			})
+		builder
+			.addCase(updateCategoryAction.pending, (state, action) => {
+			})
+			.addCase(updateCategoryAction.fulfilled, (state, action) => {
+				console.log("action update", action.payload)
+				toast.success("Update category successfully")
+				if (state.categoryList.find((category) => category.id === action.payload?.data?.id)) {
+					const index = state.categoryList.find((category) => category.id === action.payload?.data?.id)
+					index.name = action.payload?.data?.name
+					index.updatedat = action.payload?.data?.updatedat
+				}
+			})
+			.addCase(updateCategoryAction.rejected, (state, action) => {
+			})
+		builder
+			.addCase(getAllCategoryAction.pending, (state, action) => {
+			})
+			.addCase(getAllCategoryAction.fulfilled, (state, action) => {
+				state.allCategory = action.payload
+			})
+			.addCase(getAllCategoryAction.rejected, (state, action) => {
 			})
 	}
 })

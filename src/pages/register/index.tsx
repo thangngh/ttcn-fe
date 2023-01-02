@@ -14,28 +14,28 @@ import Screen from "../../layouts/Screen";
 
 const schemaValidation = Yup.object({
   firstname: Yup.string()
-    .required("First name is required")
-    .trim("First name is required")
-    .max(20, "First name is too long"),
+    .required("firstname bắt buộc")
+    .trim("firstname bắt buộc")
+    .max(20, "firstname quá dài"),
   lastname: Yup.string()
-    .required("Last name is required")
-    .trim("Last name is required")
-    .max(20, "Last name is too long"),
+    .required("lastname bắt buộc")
+    .trim("lastname bắt buộc")
+    .max(20, "lastname quá dài"),
   email: Yup.string()
-    .required("Email is required")
-    .trim("Email is required")
-    .max(50, "Email is too long")
+    .required("email bắt buộc")
+    .trim("email bắt buộc")
+    .max(50, "email quá dài")
     .matches(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm, {
-      message: "Email is invalid",
+      message: "email sai định dạng",
     }),
   username: Yup.string()
-    .required("Username is required")
-    .trim("Username is required")
-    .max(20, "Username is too long"),
+    .required("tài khoản bắt buộc")
+    .trim("tài khoản bắt buộc")
+    .max(20, "tài khoản quá dài"),
   password: Yup.string()
-    .required("Password is required")
-    .trim("Password is required")
-    .max(20, "Password is too long")
+    .required("mật khẩu bắt buộc")
+    .trim("mật khẩu bắt buộc")
+    .max(20, "mật khẩu quá dài")
     .matches(
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/g,
       {
@@ -92,13 +92,13 @@ const Register = () => {
     <div className="h-max w-full">
       <div className="flex flex-col justify-center  items-center h-auto">
         <div className="bg-white w-full max-w-sm  shadow-card-layout mt-6 p-4 rounded-lg ">
-          <h1 className="text-2xl my-3 font-medium">Register your account</h1>
+          <h1 className="text-2xl my-3 font-medium">Đăng kí tài khoản</h1>
           <form onSubmit={handleSubmit(onRegister as any)}>
             <div className="flex flex-col space-y-6">
               <div className="space-y-6 flex-1">
                 <input
                   type="text"
-                  placeholder="First name"
+                  placeholder="firstname"
                   {...register("firstname")}
                   className={`w-full px-4 py-3 rounded-lg ${
                     errors.firstname ? "ring-red-200" : "ring-green-200"
@@ -112,7 +112,7 @@ const Register = () => {
 
                 <input
                   type="text"
-                  placeholder="Last name"
+                  placeholder="lastname"
                   {...register("lastname")}
                   className={`w-full px-4 py-3 rounded-lg ${
                     errors.lastname ? "ring-red-200" : "ring-green-200"
@@ -126,7 +126,7 @@ const Register = () => {
               </div>
               <input
                 type="text"
-                placeholder="Email"
+                placeholder="email"
                 {...register("email")}
                 className={`w-full px-4 py-3 rounded-lg ${
                   errors.email ? "ring-red-200" : "ring-green-200"
@@ -139,7 +139,7 @@ const Register = () => {
               )}
               <input
                 type="text"
-                placeholder="Username"
+                placeholder="tài khoản"
                 {...register("username")}
                 className={`w-full px-4 py-3 rounded-lg ${
                   errors.username ? "ring-red-200" : "ring-green-200"
@@ -152,7 +152,7 @@ const Register = () => {
               )}
               <input
                 type="password"
-                placeholder="passWord"
+                placeholder="mật khẩu"
                 {...register("password")}
                 className={`w-full px-4 py-3 rounded-lg ${
                   errors.password ? "ring-red-200" : "ring-green-200"
@@ -179,11 +179,11 @@ const Register = () => {
               type="submit"
               className="bg-red-500 text-white block text-center 3xl:text-xl rounded-lg py-2 px-5 w-full shadow-lg mt-4 mx-auto"
             >
-              Register
+              Đăng ký
             </button>
             <Link href={"/login"}>
               <p className="text-base text-red-500 cursor-pointer text-center my-6 hover:underline">
-                Already have an account?
+                Đã có tài khoản? Đăng nhập
               </p>
             </Link>
           </form>
@@ -192,13 +192,13 @@ const Register = () => {
             <div className="flex shadow-card-layout-sm items-center space-x-3 justify-center my-2 border border-gray-300 rounded-lg w-full py-3 cursor-pointer hover:bg-gray-100">
               <GoogleIcon className="w-6 h-6 text-red-500 ml-[-14px]" />
               <span className="font-medium text-red-500">
-                Sign up with Google
+                Đăng nhập với Google
               </span>
             </div>
             <div className="flex shadow-card-layout-sm items-center space-x-3 justify-center  my-2 border border-gray-300 rounded-lg w-full py-3 cursor-pointer hover:bg-gray-100">
               <FacebookIcon className="w-6 h-6 text-red-500 " />
               <span className=" font-medium text-red-500 ">
-                Sign up With Facebook
+                Đăng nhập với Facebook
               </span>
             </div>
           </div>

@@ -57,9 +57,14 @@ export const authAPI = {
 
 			toast.success(response.data.content);
 
-			await new Promise((resolve) => setTimeout(() => {
-				redirect();
-			}, 1000));
+			if (response.data.accessToken) {
+				localStorage.setItem("accessToken", response.data.accessToken);
+
+				await new Promise((resolve) => setTimeout(() => {
+					redirect();
+				}, 1000));
+			}
+
 		} catch (error: any) {
 			toast.error(error.message)
 		}
